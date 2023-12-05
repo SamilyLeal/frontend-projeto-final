@@ -1,0 +1,121 @@
+<div class="my-4">
+
+  <div class="card">
+
+    <div class="card-header">
+
+      <div class="form-row">
+        <div class="col">
+
+          <h6>Buscar:</h6>
+
+          <div class="input-group">
+            <input class="form-control" [(ngModel)]="searchTextName" placeholder="Pesquisar por nome" />
+            <input class="form-control" [(ngModel)]="searchTextEmail" placeholder="Pesquisar por email" />
+          </div>
+
+          <button class="btn btn-secondary m-2" (click)="clearSearch()">Limpar</button>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="card-body">
+      <table class="table table-bordered table-striped">
+
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th>Nome</th>
+            <th>Email</th>
+            <th>Contato</th>
+            <th>Endereço</th>
+            <th>CEP</th>
+            <th>Cidade</th>
+            <th>Estado</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let c of clients | filter: searchTextName: 'name' | filter: searchTextEmail: 'email'">
+            <th scope="row">{{c.id}}</th>
+            <td>{{c.name}}</td>
+            <td>{{c.email}}</td>
+            <td>{{c.phone}}</td>
+            <td>{{c.address}}</td>
+            <td>{{c.zipCode}}</td>
+            <td>{{c.city}}</td>
+            <td>{{c.state}}</td>
+            <td>
+              <button class="btn btn-md btn-danger" (click)="delete(c)">Deletar</button>
+            </td>
+          </tr>
+        </tbody>
+
+      </table>
+    </div>
+  </div>
+  
+  <div class="card mt-4">
+
+    <div class="card-header">
+      <h2 class="text-center">Cadastro de Clientes</h2>
+    </div>
+
+    <div class="card-body">
+
+      <form [formGroup]="formGroupClient">
+
+          <div class="form-group">
+            <label for="InputName">Nome</label>
+            <input type="text" class="form-control" id="InputName" formControlName="name" placeholder="">
+            <small *ngIf="submited && name.hasError('required')" class="text-danger">O campo nome está vazio!</small>
+          </div>
+  
+          <div class="form-group">
+            <label for="InputEmail">Email</label>
+            <input type="email" class="form-control" id="InputEmail" formControlName="email" placeholder="">
+            <small *ngIf="submited && email.hasError('required')" class="text-danger">O campo email está vazio!</small>
+            <small *ngIf="submited && email.hasError('email')" class="text-danger">Insira um email válido!</small>
+          </div>
+  
+          <div class="form-group">
+            <label for="InputPhone">Telefone</label>
+            <input type="text" class="form-control" id="InputPhone" formControlName="phone" placeholder="">
+            <small *ngIf="submited && phone.hasError('required')" class="text-danger">O campo telefone está vazio!</small>
+            <small *ngIf="submited && phone.hasError('invalidPhoneFormat')" class="text-danger">Telefone invalido!</small>
+          </div>
+  
+          <div class="form-group">
+            <label for="InputAddress">Endereço</label>
+            <input type="text" class="form-control" id="InputAddress" formControlName="address" placeholder="">
+            <small *ngIf="submited && address.hasError('required')" class="text-danger">O campo endereço está vazio!</small>
+          </div>
+  
+          <div class="form-group">
+            <label for="InputZipCode">CEP</label>
+            <input type="text" class="form-control" id="InputZipCode" formControlName="zipCode" placeholder="">
+            <small *ngIf="submited && zipCode.hasError('required')" class="text-danger">O campo CEP está vazio!</small>
+            <small *ngIf="submited && zipCode.hasError('invalidZipCodeFormat')" class="text-danger">CEP invalido!</small>
+          </div>
+  
+          <div class="form-group">
+            <label for="InputCity">Cidade</label>
+            <input type="text" class="form-control" id="InputCity" formControlName="city" placeholder="">
+            <small *ngIf="submited && city.hasError('required')" class="text-danger">O campo cidade está vazio!</small>
+          </div>
+  
+          <div class="form-group">
+            <label for="InputState">Estado</label>
+            <input type="text" class="form-control" id="InputState" formControlName="state" placeholder="">
+            <small *ngIf="submited && state.hasError('required')" class="text-danger">O campo estado está vazio!</small>
+          </div>
+  
+          <button class="btn btn-success btn-block mt-3" (click)="save()">Salvar</button>
+  
+        </form>
+        
+    </div>
+  </div>
+
+</div>
